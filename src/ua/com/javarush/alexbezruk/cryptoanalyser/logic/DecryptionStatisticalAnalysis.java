@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DecryptionStatisticalAnalysis {
+
     public static void decryptionStatisticalAnalysis(String encryptionFile, String decryptedFile) {
         int key = 0;
 

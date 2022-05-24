@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Menu {
+
     private static final String MENU = """
             Введите номер требуемой операции:
             1 - для шифровки текста

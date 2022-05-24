@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.Arrays;
 
 public class DecryptionBruteForce {
+
     public static void decryptionBruteForce(String encryptionFile, String decryptedFile) {
         int points;
         int maxPoints = 0;

@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.util.Arrays;
 
 public class FileWorking {
+
     public static void writeFromReaderToWriter(Reader reader, Writer writer, int key) {
         int symbol;
         try {
