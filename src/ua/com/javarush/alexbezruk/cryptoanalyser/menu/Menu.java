@@ -1,6 +1,5 @@
 package ua.com.javarush.alexbezruk.cryptoanalyser.menu;
 
-import ua.com.javarush.alexbezruk.cryptoanalyser.Alphabet;
 import ua.com.javarush.alexbezruk.cryptoanalyser.logic.DecryptionBruteForce;
 import ua.com.javarush.alexbezruk.cryptoanalyser.logic.DecryptionKey;
 import ua.com.javarush.alexbezruk.cryptoanalyser.logic.DecryptionStatisticalAnalysis;
@@ -9,9 +8,6 @@ import ua.com.javarush.alexbezruk.cryptoanalyser.logic.Encryption;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.InvalidPathException;
-import java.nio.file.Path;
-import java.util.Arrays;
 
 public class Menu {
     private static final String MENU = """
@@ -34,12 +30,12 @@ public class Menu {
             """;
     private static final String MENU3 = """
             Вы выбрали расшифровку текста с помощью brute force. 
-            Пожалуйста введите через пробел адрес зашифрованного файла, адрес файла, в который нужно записать расшифрованный текст
+            Пожалуйста введите через пробел адрес зашифрованного файла и адрес файла, в который нужно записать расшифрованный текст
             Например, encryption_file.txt decrypted_file.txt
             """;
     private static final String MENU4 = """
             Вы выбрали расшифровку текста с помощью статистического анализа. 
-            Пожалуйста введите через пробел адрес зашифрованного файла, адрес файла, в который нужно записать расшифрованный текст
+            Пожалуйста введите через пробел адрес зашифрованного файла и адрес файла, в который нужно записать расшифрованный текст
             Например, encryption_file.txt decrypted_file.txt
             """;
     private static final String DEFAULT_MENU = "Введены данные неверного формата либо диапазона. Введите цифру от 0 до 4";
@@ -99,8 +95,8 @@ public class Menu {
                             continue;
                         }
 
-                        Path encryptionFile = Path.of(request[0]);
-                        Path decryptionFile = Path.of(request[1]);
+                        String encryptionFile = request[0];
+                        String decryptionFile = request[1];
 
                         DecryptionBruteForce.decryptionBruteForce(encryptionFile, decryptionFile);
                     }
@@ -113,8 +109,8 @@ public class Menu {
                             continue;
                         }
 
-                        Path encryptionFile = Path.of(request[0]);
-                        Path decryptionFile = Path.of(request[1]);
+                        String encryptionFile = request[0];
+                        String decryptionFile = request[1];
 
                         DecryptionStatisticalAnalysis.decryptionStatisticalAnalysis(encryptionFile, decryptionFile);
                     }
