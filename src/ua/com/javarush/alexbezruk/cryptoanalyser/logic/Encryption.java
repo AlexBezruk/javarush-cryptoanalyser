@@ -1,19 +1,22 @@
 package ua.com.javarush.alexbezruk.cryptoanalyser.logic;
 
-import ua.com.javarush.alexbezruk.cryptoanalyser.fileWorking.FileWorking;
+import ua.com.javarush.alexbezruk.cryptoanalyser.Alphabet;
 
-import java.io.*;
+import java.util.Arrays;
 
 public class Encryption {
+    public static char[] encryption(char[] originalCharArray, int key) {
+        char[] modifiedCharArray = new char[originalCharArray.length];
 
-    public static void encryption(String originalFile, String encryptionFile, int key) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(originalFile));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(encryptionFile))) {
-            FileWorking.writeFromReaderToWriter(reader, writer, key);
-        } catch (FileNotFoundException e) {
-            System.err.println("Файл для чтения не найден" + originalFile);
-        } catch (IOException e) {
-            System.err.println("Ошибка при записи файла " + encryptionFile);
+        for (int i = 0; i < originalCharArray.length; i++) {
+            int indexLetter = Arrays.binarySearch(Alphabet.getSortedAlphabet(), originalCharArray[i]);
+            if (indexLetter < 0) {
+                modifiedCharArray[i] = originalCharArray[i];
+                continue;
+            }
+            int newIndexLetter = (indexLetter + key) % Alphabet.getAlphabetLength();
+            modifiedCharArray[i] = Alphabet.getSortedAlphabet()[newIndexLetter];
         }
+        return modifiedCharArray;
     }
 }
