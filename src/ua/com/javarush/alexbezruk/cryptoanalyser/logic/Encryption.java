@@ -1,6 +1,6 @@
 package ua.com.javarush.alexbezruk.cryptoanalyser.logic;
 
-import ua.com.javarush.alexbezruk.cryptoanalyser.Alphabet;
+import ua.com.javarush.alexbezruk.cryptoanalyser.data.Alphabet;
 
 import java.util.Arrays;
 

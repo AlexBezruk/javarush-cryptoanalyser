@@ -1,6 +1,6 @@
 package ua.com.javarush.alexbezruk.cryptoanalyser.menu;
 
-import ua.com.javarush.alexbezruk.cryptoanalyser.Alphabet;
+import ua.com.javarush.alexbezruk.cryptoanalyser.data.Alphabet;
 import ua.com.javarush.alexbezruk.cryptoanalyser.file.FileIOException;
 import ua.com.javarush.alexbezruk.cryptoanalyser.file.ValidationCheckFiles;
 import ua.com.javarush.alexbezruk.cryptoanalyser.file.WorkingWithFiles;
@@ -25,11 +25,11 @@ public class Dialog {
     private static File fileOutput;
 
     public static void run() {
-        System.out.println(MenuCommand.values()[0].getMenuCommand());
+        System.out.println(MenuItems.values()[0].getMenuCommand());
 
         runStartMenu();
 
-        System.out.println(MenuCommand.values()[number].getMenuCommand());
+        System.out.println(MenuItems.values()[number].getMenuCommand());
 
         fileInput = enteringFileInput();
         fileOutput = enteringFileOutput();
@@ -70,9 +70,9 @@ public class Dialog {
     private static File enteringFileInput() {
         while (fileInput == null) {
             if (number == 1) {
-                System.out.println(MenuCommand.values()[5].getMenuCommand());
+                System.out.println(MenuItems.values()[5].getMenuCommand());
             } else {
-                System.out.println(MenuCommand.values()[6].getMenuCommand());
+                System.out.println(MenuItems.values()[6].getMenuCommand());
             }
 
             try {
@@ -91,28 +91,32 @@ public class Dialog {
     }
 
     private static File enteringFileOutput() {
-        if (number == 1) {
-            System.out.println(MenuCommand.values()[7].getMenuCommand());
-        } else {
-            System.out.println(MenuCommand.values()[8].getMenuCommand());
-        }
-
-        try {
-            fileOutput = new File(reader.readLine());
-        } catch (IOException e) {
-            throw new FileIOException(IO_EXCEPTION, e);
-        }
-
-        if (!fileOutput.exists()) {
-            try {
-                fileOutput.createNewFile();
-            } catch (IOException e) {
-                System.err.println("Файл не может быть создан");
+        while (fileOutput == null) {
+            if (number == 1) {
+                System.out.println(MenuItems.values()[7].getMenuCommand());
+            } else {
+                System.out.println(MenuItems.values()[8].getMenuCommand());
             }
-        }
 
-        if (!ValidationCheckFiles.isFile(fileOutput) || ValidationCheckFiles.isDirectory(fileOutput)) {
-            fileOutput = null;
+            try {
+                fileOutput = new File(reader.readLine());
+            } catch (IOException e) {
+                throw new FileIOException(IO_EXCEPTION, e);
+            }
+
+            if (!fileOutput.exists()) {
+                try {
+                    fileOutput.createNewFile();
+                } catch (IOException e) {
+                    System.err.println("Файл не может быть создан");
+                    fileOutput = null;
+                }
+            }
+
+            if (fileOutput != null &&
+                    (!ValidationCheckFiles.isFile(fileOutput) || ValidationCheckFiles.isDirectory(fileOutput))) {
+                fileOutput = null;
+            }
         }
 
         return fileOutput;
@@ -120,10 +124,10 @@ public class Dialog {
 
     private static int enteringKey() {
         if (number == 1) {
-            System.out.println(MenuCommand.values()[9].getMenuCommand() + ENCRYPTION_RANGE);
+            System.out.println(MenuItems.values()[9].getMenuCommand() + ENCRYPTION_RANGE);
         }
         if (number == 2) {
-            System.out.println(MenuCommand.values()[10].getMenuCommand() + ENCRYPTION_RANGE);
+            System.out.println(MenuItems.values()[10].getMenuCommand() + ENCRYPTION_RANGE);
         }
 
         try {

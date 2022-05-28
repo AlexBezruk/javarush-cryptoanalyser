@@ -1,6 +1,6 @@
 package ua.com.javarush.alexbezruk.cryptoanalyser.menu;
 
-public enum MenuCommand {
+public enum MenuItems {
     MENU("""
             Введите номер требуемой операции:
             1 - для шифровки текста
@@ -26,7 +26,7 @@ public enum MenuCommand {
 
     String menuCommand;
 
-    MenuCommand(String menu) {
+    MenuItems(String menu) {
         this.menuCommand = menu;
     }
 

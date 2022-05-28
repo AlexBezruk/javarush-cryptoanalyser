@@ -1,6 +1,7 @@
 package ua.com.javarush.alexbezruk.cryptoanalyser.logic;
 
-import ua.com.javarush.alexbezruk.cryptoanalyser.Alphabet;
+import ua.com.javarush.alexbezruk.cryptoanalyser.data.Alphabet;
+import ua.com.javarush.alexbezruk.cryptoanalyser.data.Words;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -60,10 +61,9 @@ public class Decryption {
 
             String text = new String(decryptionKey(originalCharArray, i));
             String[] words = text.split("[^A-Za-zА-Яа-я]+");
-            Arrays.sort(Alphabet.getMostUsedWords());
 
             for (String word : words) {
-                if (Arrays.binarySearch(Alphabet.getMostUsedWords(), word.toLowerCase()) >= 0) {
+                if (Arrays.binarySearch(Words.getSortedMostUsedWords(), word.toLowerCase()) >= 0) {
                     points += word.length();
                 }
             }
