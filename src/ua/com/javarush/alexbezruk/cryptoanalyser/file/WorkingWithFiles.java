@@ -4,14 +4,12 @@ import java.io.*;
 
 public class WorkingWithFiles {
     public static char[] readingFile(File file) {
-        int symbol;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file));
-             CharArrayWriter writer = new CharArrayWriter()) {
-            while ((symbol = reader.read()) != -1) {
-                writer.write(symbol);
+        StringBuilder builder = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            while (reader.ready()) {
+                builder.append(reader.readLine());
             }
-            return writer.toCharArray();
+            return builder.toString().toCharArray();
         }  catch (IOException e) {
             throw new FileIOException("Ошибка при чтении файла " + file, e);
         }
