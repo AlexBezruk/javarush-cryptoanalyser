@@ -1,9 +1,14 @@
 package ua.com.javarush.alexbezruk.cryptoanalyser;
 
+import ua.com.javarush.alexbezruk.cryptoanalyser.file.FileIOException;
 import ua.com.javarush.alexbezruk.cryptoanalyser.menu.Dialog;
 
 public class Main {
     public static void main(String[] args) {
-        Dialog.run();
+        try {
+            Dialog.run();
+        } catch (FileIOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }
