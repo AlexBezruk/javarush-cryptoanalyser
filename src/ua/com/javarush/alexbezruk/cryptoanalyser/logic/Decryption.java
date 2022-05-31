@@ -9,8 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Decryption {
+    private static final String WORD_SEPARATOR = "[^A-Za-zА-Яа-я]+";
+
     public static char[] decryptionKey(char[] originalCharArray, int key) {
-        return Encryption.encryption(originalCharArray, Alphabet.getSortedAlphabet().length - key);
+        return Encryption.encryption(originalCharArray, Alphabet.LENGTH - key);
     }
 
     public static char[] decryptionBruteForce(char[] originalCharArray) {
@@ -21,7 +23,7 @@ public class Decryption {
 
     public static char[] decryptionStatisticalAnalysis(char[] originalCharArray) {
         int numberSymbol = searchNumberOfMostUsedSymbol(originalCharArray);
-        int key = numberSymbol - Arrays.binarySearch(Alphabet.getSortedAlphabet(), ' ');
+        int key = numberSymbol - Arrays.binarySearch(Alphabet.getSorted(), ' ');
         return decryptionKey(originalCharArray, key);
     }
 
@@ -30,7 +32,7 @@ public class Decryption {
 
         Map<Character, Integer> map = new HashMap<>();
         for (Character symbol : originalCharArray) {
-            int indexLetter = Arrays.binarySearch(Alphabet.getSortedAlphabet(), symbol);
+            int indexLetter = Arrays.binarySearch(Alphabet.getSorted(), symbol);
             if (indexLetter >= 0) {
                 if (map.containsKey(symbol)) {
                     map.put(symbol, map.get(symbol) + 1);
@@ -44,7 +46,7 @@ public class Decryption {
 
         for (Map.Entry<Character, Integer> entry : map.entrySet()) {
             if (entry.getValue() == maxValueInMap) {
-                key = Arrays.binarySearch(Alphabet.getSortedAlphabet(), entry.getKey());
+                key = Arrays.binarySearch(Alphabet.getSorted(), entry.getKey());
             }
         }
 
@@ -56,11 +58,11 @@ public class Decryption {
         int maxPoints = 0;
         int keyWithMaxPoints = 0;
 
-        for (int i = 1; i < Alphabet.getSortedAlphabet().length; i++) {
+        for (int i = 1; i < Alphabet.LENGTH; i++) {
             points = 0;
 
             String text = new String(decryptionKey(originalCharArray, i));
-            String[] words = text.split("[^A-Za-zА-Яа-я]+");
+            String[] words = text.split(WORD_SEPARATOR);
 
             for (String word : words) {
                 if (Arrays.binarySearch(Words.getSortedMostUsedWords(), word.toLowerCase()) >= 0) {

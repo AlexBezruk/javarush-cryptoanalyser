@@ -9,13 +9,13 @@ public class Encryption {
         char[] modifiedCharArray = new char[originalCharArray.length];
 
         for (int i = 0; i < originalCharArray.length; i++) {
-            int indexLetter = Arrays.binarySearch(Alphabet.getSortedAlphabet(), originalCharArray[i]);
+            int indexLetter = Arrays.binarySearch(Alphabet.getSorted(), originalCharArray[i]);
             if (indexLetter < 0) {
                 modifiedCharArray[i] = originalCharArray[i];
                 continue;
             }
-            int newIndexLetter = (indexLetter + key) % Alphabet.getAlphabetLength();
-            modifiedCharArray[i] = Alphabet.getSortedAlphabet()[newIndexLetter];
+            int newIndexLetter = (indexLetter + key) % Alphabet.LENGTH;
+            modifiedCharArray[i] = Alphabet.getSorted()[newIndexLetter];
         }
         return modifiedCharArray;
     }

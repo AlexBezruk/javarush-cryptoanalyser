@@ -6,13 +6,10 @@ public class Alphabet {
     private static final char[] ALPHABET = ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" +
             "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ" +
             ".,«»:;!?-() ").toCharArray();
+    public static final int LENGTH = ALPHABET.length;
 
-    public static char[] getSortedAlphabet() {
+    public static char[] getSorted() {
         Arrays.sort(ALPHABET);
         return ALPHABET;
-    }
-
-    public static int getAlphabetLength() {
-        return ALPHABET.length;
     }
 }

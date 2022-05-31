@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 public class Dialog {
     private static final String INVALID_FORMAT_OR_RANGE = "Введены данные неверного формата либо диапазона.";
     private static final String FROM_0_TO_4 = " Введите цифру от 0 до 4";
-    private static final String ENCRYPTION_RANGE = " Ключ должен быть от 1 до " + (Alphabet.getAlphabetLength() - 1);
+    private static final String ENCRYPTION_RANGE = " Ключ должен быть от 1 до " + (Alphabet.LENGTH - 1);
     private static final String IO_EXCEPTION = "Ошибка при чтении данных с консоли. ";
 
     private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -132,7 +132,7 @@ public class Dialog {
 
         try {
             key = Integer.parseInt(reader.readLine());
-            if (number <= 0 || number >= Alphabet.getAlphabetLength() - 1) {
+            if (number <= 0 || number >= Alphabet.LENGTH - 1) {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
