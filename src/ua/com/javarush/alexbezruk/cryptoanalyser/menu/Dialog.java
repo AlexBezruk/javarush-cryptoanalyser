@@ -3,7 +3,7 @@ package ua.com.javarush.alexbezruk.cryptoanalyser.menu;
 import ua.com.javarush.alexbezruk.cryptoanalyser.data.Alphabet;
 import ua.com.javarush.alexbezruk.cryptoanalyser.file.FileIOException;
 import ua.com.javarush.alexbezruk.cryptoanalyser.file.ValidationCheckFiles;
-import ua.com.javarush.alexbezruk.cryptoanalyser.file.WorkingWithFiles;
+import ua.com.javarush.alexbezruk.cryptoanalyser.file.DataFile;
 import ua.com.javarush.alexbezruk.cryptoanalyser.logic.Decryption;
 import ua.com.javarush.alexbezruk.cryptoanalyser.logic.Encryption;
 
@@ -25,7 +25,7 @@ public class Dialog {
     private static File fileOutput;
 
     public static void run() {
-        System.out.println(MenuItems.values()[0].getMenuCommand());
+        System.out.println(MenuItems.START_MENU.getMenuCommand());
 
         runStartMenu();
 
@@ -37,17 +37,17 @@ public class Dialog {
             key = enteringKey();
         }
 
-        char[] inputText = WorkingWithFiles.readingFile(fileInput);
+        char[] inputText = DataFile.read(fileInput);
         char[] outputText = new char[inputText.length];
 
         switch (number) {
-            case 1 -> outputText = Encryption.encryption(inputText, key);
-            case 2 -> outputText = Decryption.decryptionKey(inputText, key);
-            case 3 -> outputText = Decryption.decryptionBruteForce(inputText);
-            case 4 -> outputText = Decryption.decryptionStatisticalAnalysis(inputText);
+            case 1 -> outputText = Encryption.perform(inputText, key);
+            case 2 -> outputText = Decryption.performByKey(inputText, key);
+            case 3 -> outputText = Decryption.performBruteForce(inputText);
+            case 4 -> outputText = Decryption.performStatisticalAnalysis(inputText);
         }
 
-        WorkingWithFiles.writingFile(outputText, fileOutput);
+        DataFile.write(outputText, fileOutput);
     }
 
     private static void runStartMenu() {
@@ -70,9 +70,9 @@ public class Dialog {
     private static File enteringFileInput() {
         while (fileInput == null) {
             if (number == 1) {
-                System.out.println(MenuItems.values()[5].getMenuCommand());
+                System.out.println(MenuItems.FILE_TO_ENCRYPT.getMenuCommand());
             } else {
-                System.out.println(MenuItems.values()[6].getMenuCommand());
+                System.out.println(MenuItems.FILE_TO_DECRYPT.getMenuCommand());
             }
 
             try {
@@ -93,9 +93,9 @@ public class Dialog {
     private static File enteringFileOutput() {
         while (fileOutput == null) {
             if (number == 1) {
-                System.out.println(MenuItems.values()[7].getMenuCommand());
+                System.out.println(MenuItems.ENCRYPTED_FILE.getMenuCommand());
             } else {
-                System.out.println(MenuItems.values()[8].getMenuCommand());
+                System.out.println(MenuItems.DECRYPTED_FILE.getMenuCommand());
             }
 
             try {
@@ -124,10 +124,10 @@ public class Dialog {
 
     private static int enteringKey() {
         if (number == 1) {
-            System.out.println(MenuItems.values()[9].getMenuCommand() + ENCRYPTION_RANGE);
+            System.out.println(MenuItems.ENCRYPTION_KEY.getMenuCommand() + ENCRYPTION_RANGE);
         }
         if (number == 2) {
-            System.out.println(MenuItems.values()[10].getMenuCommand() + ENCRYPTION_RANGE);
+            System.out.println(MenuItems.DECRYPTION_KEY.getMenuCommand() + ENCRYPTION_RANGE);
         }
 
         try {

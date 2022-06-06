@@ -9,22 +9,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Decryption {
-    private static final String WORD_SEPARATOR = "[^A-Za-zА-Яа-я]+";
+    private static final String WORD_SEPARATOR_REGEX = "[^A-Za-zА-Яа-я]+";
 
-    public static char[] decryptionKey(char[] originalCharArray, int key) {
-        return Encryption.encryption(originalCharArray, Alphabet.LENGTH - key);
+    public static char[] performByKey(char[] originalCharArray, int key) {
+        return Encryption.perform(originalCharArray, Alphabet.LENGTH - key);
     }
 
-    public static char[] decryptionBruteForce(char[] originalCharArray) {
+    public static char[] performBruteForce(char[] originalCharArray) {
         int key = searchKey(originalCharArray);
 
-        return decryptionKey(originalCharArray, key);
+        return performByKey(originalCharArray, key);
     }
 
-    public static char[] decryptionStatisticalAnalysis(char[] originalCharArray) {
+    public static char[] performStatisticalAnalysis(char[] originalCharArray) {
         int numberSymbol = searchNumberOfMostUsedSymbol(originalCharArray);
         int key = numberSymbol - Arrays.binarySearch(Alphabet.getSorted(), ' ');
-        return decryptionKey(originalCharArray, key);
+        return performByKey(originalCharArray, key);
     }
 
     private static int searchNumberOfMostUsedSymbol(char[] originalCharArray) {
@@ -54,15 +54,14 @@ public class Decryption {
     }
 
     private static int searchKey(char[] originalCharArray) {
-        int points;
         int maxPoints = 0;
         int keyWithMaxPoints = 0;
 
         for (int i = 1; i < Alphabet.LENGTH; i++) {
-            points = 0;
+            int points = 0;
 
-            String text = new String(decryptionKey(originalCharArray, i));
-            String[] words = text.split(WORD_SEPARATOR);
+            String text = new String(performByKey(originalCharArray, i));
+            String[] words = text.split(WORD_SEPARATOR_REGEX);
 
             for (String word : words) {
                 if (Arrays.binarySearch(Words.getSortedMostUsedWords(), word.toLowerCase()) >= 0) {
